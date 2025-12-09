@@ -234,7 +234,7 @@ const animationTimeline = () => {
       ".lydia-dp",
       0.5,
       {
-        scale: 1,
+        scale: 3.5,
         opacity: 0,
         x: 25,
         y: -25,
@@ -242,12 +242,32 @@ const animationTimeline = () => {
       },
       "-=2"
     )
-    .from(".hat", 0.5, {
-      x: -100,
-      y: 350,
-      rotation: -180,
+    .call(function() {
+  // 动态计算帽子位置
+  const photo = document.querySelector('.lydia-dp');
+  const hat = document.querySelector('.hat');
+  
+  if (photo && hat) {
+    const photoRect = photo.getBoundingClientRect();
+    
+    // 先重置帽子位置
+    gsap.set(hat, {
+      x: 0,
+      y: 0,
       opacity: 0
-    })
+    });
+    
+    // 相对于照片定位帽子
+    gsap.to(hat, 0.5, {
+      x: photoRect.width * 0.15,    // 照片宽度的15%（向右偏移）
+      y: -photoRect.height * 0.4,  // 照片高度的40%（向上偏移）
+      rotation: -10,               // 轻微旋转
+      opacity: 1,
+      scale: photoRect.width / 400, // 根据照片大小缩放帽子
+      ease: "back.out(1.7)"
+    });
+  }
+})
     .staggerFrom(
       ".wish-hbd span",
       0.7,
