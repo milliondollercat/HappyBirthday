@@ -242,6 +242,7 @@ const animationTimeline = () => {
       },
       "-=2"
     )
+    // 帽子动画已删除
     .staggerFrom(
       ".wish-hbd span",
       0.7,
@@ -315,7 +316,6 @@ const animationTimeline = () => {
   const replyBtn = document.getElementById("replay")
   replyBtn.addEventListener("click", () => {
     tl.restart()
-
   })
 }
 
